@@ -1,4 +1,4 @@
-package com.aevapay.android.task.ui.planetdetails
+package com.aevapay.android.task.ui.repodetails
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,60 +13,59 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RepoDetailsViewModel @Inject constructor() : BaseViewModel() {
-    private val TAG = "PlanetListViewModel"
 
-    private val _planetsFavDataObserver = MutableLiveData<Boolean>()
-   val planetsDataObserverFav: LiveData<Boolean> = _planetsFavDataObserver
+    private val _repoFavDataObserver = MutableLiveData<Boolean>()
+    val repoDataObserverFav: LiveData<Boolean> = _repoFavDataObserver
 
-    lateinit var planet : RepoResponseItem
-    var isFavPlanet : Boolean = false
+    lateinit var repo: RepoResponseItem
+    var isFavRepo: Boolean = false
 
-    private lateinit var localFavouriteReposRepository : LocalFavouriteReposRepository
+    private lateinit var localFavouriteReposRepository: LocalFavouriteReposRepository
 
     fun setComplexPref(complexPreferences: ComplexPreferencesImpl) {
         localFavouriteReposRepository = LocalFavouriteReposRepository(complexPreferences)
     }
 
     fun handleFavClicked(selected: Boolean) {
-        isFavPlanet = selected
-        if (selected){
+        isFavRepo = selected
+        if (selected) {
             saveToLocalStorage()
-        }else{
+        } else {
             removeFromLocalStorage()
         }
-        _planetsFavDataObserver.postValue(isFavPlanet)
+        _repoFavDataObserver.postValue(isFavRepo)
     }
 
     private fun removeFromLocalStorage() {
         viewModelScope.launch {
-           localFavouriteReposRepository.removeFavouritePlanet(planet)
+            localFavouriteReposRepository.removeFavouriteRepo(repo)
         }
     }
 
     private fun saveToLocalStorage() {
         viewModelScope.launch {
-           localFavouriteReposRepository.saveFavouriteRepos(planet)
+            localFavouriteReposRepository.saveFavouriteRepos(repo)
         }
     }
 
-    fun setPlanetData(RepoResponseItem: RepoResponseItem) {
-        planet =  RepoResponseItem
+    fun setData(RepoResponseItem: RepoResponseItem) {
+        repo = RepoResponseItem
     }
 
     fun handleIfAlreadyFavourite() {
         viewModelScope.launch {
 
             val list = localFavouriteReposRepository.getFavouriteReposList()
-            if (list.contains(planet)) {
+            if (list.contains(repo)) {
                 updateFaviconandstatus()
             }
 
         }
     }
 
-    private fun updateFaviconandstatus(){
-        isFavPlanet = true
-       _planetsFavDataObserver.postValue(true)
+    private fun updateFaviconandstatus() {
+        isFavRepo = true
+        _repoFavDataObserver.postValue(true)
     }
 }
 

@@ -8,7 +8,7 @@ object Constants {
 
     const val BASE_URL = BuildConfig.GITHUB_BASE_URL
 
-   // https://api.github.com/users/JakeWharton/repos?page=1&per_page=15
+    // https://api.github.com/users/JakeWharton/repos?page=1&per_page=15
 
     const val REPOS_URL = "users/JakeWharton/repos"
 
@@ -18,9 +18,9 @@ object Constants {
 
     const val REPOS_LIST_PREF_NAME = "repos_list"
 
-    const val NUMBER_OF_REPOS_PER_PAGE=15
+    const val NUMBER_OF_REPOS_PER_PAGE = 15
 
-    const val  STARTING_KEY =1
+    const val STARTING_KEY = 1
 
 
 }

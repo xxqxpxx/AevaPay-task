@@ -7,7 +7,7 @@ import com.aevapay.android.task.network.Constants.PREFERENCE_NAME
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class ComplexPreferencesImpl (context: Context) {
+class ComplexPreferencesImpl(context: Context) {
     var sharedPreferences: SharedPreferences
     private val gson: Gson = Gson()
     private val editor: SharedPreferences.Editor
@@ -22,8 +22,9 @@ class ComplexPreferencesImpl (context: Context) {
         editor.putString(key, json)
         editor.apply()
     }
+
     fun getArrayList(key: String): java.util.ArrayList<RepoResponseItem>? {
-         val json: String? = sharedPreferences.getString(key, null)
+        val json: String? = sharedPreferences.getString(key, null)
         val type = object : TypeToken<java.util.ArrayList<RepoResponseItem>>() {}.type
         return gson.fromJson(json, type)
     }

@@ -1,6 +1,5 @@
 package com.aevapay.android.task.network
 
-import com.aevapay.android.task.data.response.AstronomyResponse
 import com.aevapay.android.task.data.response.RepoResponseItem
 import retrofit2.Response
 import retrofit2.http.GET

@@ -3,7 +3,7 @@ package com.aevapay.android.task.data.response
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
- class RepoResponse : ArrayList<RepoResponseItem>()
+class RepoResponse : ArrayList<RepoResponseItem>()
 
 
 @Parcelize

@@ -3,7 +3,6 @@ package com.aevapay.android.task.data.repo
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.aevapay.android.task.data.response.RepoResponseItem
-import kotlinx.coroutines.flow.catch
 
 class RepoItemDataSource(
     private val dataRepository: ReposRepository
@@ -17,7 +16,7 @@ class RepoItemDataSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RepoResponseItem> {
         val position = params.key ?: STARTING_PAGE_INDEX
         var list: List<RepoResponseItem> = emptyList()
-        val result = dataRepository.fetchPictures(position)
+        val result = dataRepository.fetchRepos(position)
 
         try {
             result.collect { response ->
@@ -35,8 +34,8 @@ class RepoItemDataSource(
                 nextKey = if (list.isEmpty()) null else position + 1
             )
 
-        }catch (e:Exception){
-          return  LoadResult.Error( e)
+        } catch (e: Exception) {
+            return LoadResult.Error(e)
 
         }
     }

@@ -2,6 +2,7 @@ package com.aevapay.android.task
 
 import android.util.Log
 import com.aevapay.android.task.data.repo.ReposRepository
+import com.aevapay.android.task.network.Constants
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.HiltTestApplication
@@ -41,7 +42,7 @@ class ReposServiceTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun testResponseCode() = runTest {
-        repository.fetchPictures()
+        repository.fetchRepos(Constants.NUMBER_OF_REPOS_PER_PAGE)
             .catch { exception ->
                 Log.i(TAG, "Exception : ${exception.message}")
                 assert(false)

@@ -3,7 +3,6 @@ package com.aevapay.android.task.ui.reposlanding
 import android.content.Intent
 import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -12,26 +11,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aevapay.android.task.base.BaseActivity
 import com.aevapay.android.task.data.helper.ComplexPreferencesImpl
 import com.aevapay.android.task.data.response.RepoResponseItem
- import com.aevapay.android.task.databinding.ActivityRepoLandingBinding
+import com.aevapay.android.task.databinding.ActivityRepoLandingBinding
 import com.aevapay.android.task.network.ResultModel
-import com.aevapay.android.task.ui.planetdetails.RepoDetailsActivity
+import com.aevapay.android.task.ui.repodetails.RepoDetailsActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
 class ReposLandingActivity : BaseActivity<ActivityRepoLandingBinding>() {
-    private val TAG = "PlanetsLandingActivity"
 
     private val viewModel: ReposLandingViewModel by viewModels()
 
     private lateinit var reposAdapter: ReposAdapter
 
-    //   private lateinit var planetsFavouriteAdapter: ReposAdapter
-
-    private lateinit var orderOptions: Array<String>
-
-    private lateinit var dialog: AlertDialog
+    private lateinit var reposFavouriteAdapter: ReposFavsAdapter
 
     override fun getViewBinding() = ActivityRepoLandingBinding.inflate(layoutInflater)
 
@@ -48,7 +42,7 @@ class ReposLandingActivity : BaseActivity<ActivityRepoLandingBinding>() {
         initListeners()
         fillData()
         pagingObserver()
-    } // fun of setupView
+    }
 
     override fun onResume() {
         super.onResume()
@@ -61,7 +55,7 @@ class ReposLandingActivity : BaseActivity<ActivityRepoLandingBinding>() {
 
 
     private fun fillData() {
-        initPlanetList()
+        initRepoList()
     }
 
     private fun initListeners() {
@@ -79,20 +73,20 @@ class ReposLandingActivity : BaseActivity<ActivityRepoLandingBinding>() {
         handleError(isError = false)
     }
 
-    private fun handlePlanetSelection(planet: RepoResponseItem?) {
+    private fun handleRepoSelection(repo: RepoResponseItem?) {
         val myIntent = Intent(this, RepoDetailsActivity::class.java)
-        myIntent.putExtra("planetDetails", planet)
+        myIntent.putExtra("repoDetails", repo)
         startActivity(myIntent)
     }
 
-    var planetsOnClickListener = (ReposAdapter.OnClickListener { planet ->
-        handlePlanetSelection(planet)
+    var reposOnClickListener = (ReposAdapter.OnClickListener { item ->
+        handleRepoSelection(item)
     })
 
-    private fun initPlanetList() {
+    private fun initRepoList() {
         reposAdapter = ReposAdapter(
             context = this@ReposLandingActivity,
-            onClickListener = planetsOnClickListener
+            onClickListener = reposOnClickListener
         )
         binding.recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         binding.recyclerView.adapter = reposAdapter
@@ -100,20 +94,13 @@ class ReposLandingActivity : BaseActivity<ActivityRepoLandingBinding>() {
         reposAdapter.addLoadStateListener { loadState ->
             when (val state = loadState.source.refresh) {
                 is LoadState.NotLoading -> {
-
                     handleProgress(isLoading = false)
-
-
                 }
                 is LoadState.Loading -> {
-
                     handleProgress(isLoading = true)
-
                 }
                 is LoadState.Error -> {
-
                     onFail()
-
                 }
             }
         }
@@ -130,12 +117,13 @@ class ReposLandingActivity : BaseActivity<ActivityRepoLandingBinding>() {
 
     private fun pagingObserver() {
 
-        viewModel._cryptoList.observe(this) {
+        viewModel._repoListPaging.observe(this) {
             lifecycleScope.launch {
-                handleProgress(isLoading = false)
                 reposAdapter.submitData(it)
             }
         }
+
+
     }
 
     private fun handleProgress(isLoading: Boolean) {
@@ -158,30 +146,29 @@ class ReposLandingActivity : BaseActivity<ActivityRepoLandingBinding>() {
         }
     }
 
-    var planetsFavOnClickListener = (ReposAdapter.OnClickListener { planet ->
-        handlePlanetSelection(planet)
+    var reposFavOnClickListener = (ReposFavsAdapter.OnClickListener { repo ->
+        handleRepoSelection(repo)
     })
 
     private fun handleFavouriteIconState(list: ArrayList<RepoResponseItem>) {
-        /*
-         if (list.isNotEmpty()){
-             binding.txtMyfavourites.visibility = View.VISIBLE
-             binding.rcvFavourites.visibility = View.VISIBLE
 
-             planetsFavouriteAdapter = ReposAdapter(
-                 planetList = list,
-                 context = this@ReposLandingActivity,
-                 planetsFavOnClickListener
-             )
-             binding.rcvFavourites.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-             binding.rcvFavourites.adapter = planetsFavouriteAdapter
+        if (list.isNotEmpty()) {
+            binding.txtMyfavourites.visibility = View.VISIBLE
+            binding.rcvFavourites.visibility = View.VISIBLE
 
-             planetsFavouriteAdapter.notifyDataSetChanged()
+            reposFavouriteAdapter = ReposFavsAdapter(
+                list,
+                context = this@ReposLandingActivity,
+                reposFavOnClickListener
+            )
+            binding.rcvFavourites.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+            binding.rcvFavourites.adapter = reposFavouriteAdapter
 
-         }else{
-             binding.txtMyfavourites.visibility = View.GONE
-             binding.rcvFavourites.visibility = View.GONE
-         }*/
+
+        } else {
+            binding.txtMyfavourites.visibility = View.GONE
+            binding.rcvFavourites.visibility = View.GONE
+        }
     }
 
 

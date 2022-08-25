@@ -34,6 +34,7 @@ class ReposRepositoryTest {
         hiltAndroidRule.inject()
     }
 
+/*
 
     @Test
     fun testOrderByTitle() = runTest {
@@ -61,6 +62,7 @@ class ReposRepositoryTest {
                 assert(response == preparePlanetFeaturesByDate())
             } // collect
     }
+*/
 
     private fun preparePlanetFeatures(): ArrayList<AstronomyResponse> {
         var list: ArrayList<AstronomyResponse> = arrayListOf()

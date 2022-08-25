@@ -8,29 +8,18 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class ReposRepository @Inject constructor(private val apiService: ApiService){
+class ReposRepository @Inject constructor(private val apiService: ApiService) {
 
     private val TAG = "Planetary Repository"
 
 
-    fun fetchPictures(page : Int): Flow<retrofit2.Response<List<RepoResponseItem>>> {
+    fun fetchRepos(page: Int): Flow<retrofit2.Response<List<RepoResponseItem>>> {
         return flow {
-            val response = apiService.getRepository(NUMBER_OF_REPOS_PER_PAGE , page)
+            val response = apiService.getRepository(NUMBER_OF_REPOS_PER_PAGE, page)
             Log.i(TAG, "fetchMain response $response")
             emit(response)
         }
     }
 
-    fun sortByTitle(list: List<RepoResponseItem>): Flow<List<RepoResponseItem>>{
-        return flow {
-         //   emit(list.sortedBy { it.title })
-        }
-    }
-
-    fun sortByDate(list: List<RepoResponseItem>): Flow<List<RepoResponseItem>>{
-        return flow {
-        //    emit(list.sortedBy { it.date })
-        }
-    }
 
 }

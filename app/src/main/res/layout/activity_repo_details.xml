@@ -9,8 +9,8 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    tools:context=".ui.planetdetails.RepoDetailsActivity">
+    android:layout_height="match_parent"
+    tools:context=".ui.repodetails.RepoDetailsActivity">
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -22,17 +22,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <ImageView
-        android:id="@+id/img_planet_bg"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -53,7 +42,7 @@
 
 
     <TextView
-        android:id="@+id/txt_planet_title"
+        android:id="@+id/txt_repo_title"
         style="@style/TextAppearance.AppTheme.Headline1"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
@@ -79,7 +68,7 @@
         android:paddingEnd="16dp"
         android:text="03/01/2022"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_planet_title" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_repo_title" />
 
     <ImageView
         android:id="@+id/img_favourite"
@@ -90,7 +79,7 @@
         android:layout_marginEnd="35dp"
         android:src="@drawable/ic_favorite_border"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_planet_title" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_repo_title" />
 
     <TextView
         style="@style/TextAppearance.AppTheme.Body"
@@ -109,20 +98,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_date" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+
+
+    <TextView
+        style="@style/TextAppearance.AppTheme.Body"
+        android:id="@+id/txt_repo_attributes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        android:text="gdgdgdgd"
+        android:paddingStart="16dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_description"
-        tools:itemCount="4"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        tools:listitem="@layout/item_planet_attributes" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_description" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
