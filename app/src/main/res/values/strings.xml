@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">AevaPay task</string>
+    <string name="warped">It\'s warped.</string>
+    <string name="stars">Over 200 billion stars.</string>
+    <string name="gassy">It\'s really dusty and gassy.</string>
+    <string name="black_hole">Black hole at the centre.</string>
+    <string name="Repos">Repos</string>
+    <string name="my_favourties">My favourites</string>
+    <string name="latest">Latest</string>
+    <string name="reorder_list">Reorder list</string>
+    <string name="error_title">Ooops! Something went wrong.</string>
+    <string name="error_hint">Please refresh the page and try again</string>
+    <string name="refresh">Refresh</string>
+    <string name="reorder_by_title">Reorder by title</string>
+    <string name="reorder_by_date">Reorder by date</string>
+    <string name="apply">Apply</string>
+    <string name="reset">Reset</string>
+    <string name="wrapped_text">It\'s warped.</string>
+    <string name="billion_star_text">Over 200 billion stars</string>
+    <string name="dusty_text">It\'s really dusty and gassy</string>
+    <string name="black_hole_text">Black hole at the centre.</string>
+</resources>
