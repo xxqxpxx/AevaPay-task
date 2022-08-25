@@ -35,10 +35,7 @@ class ReposServiceTest {
         hiltAndroidRule.inject()
     }
 
-    /**
-     * Integration test -
-     * ensures the [generated key](https://api.nasa.gov/) returns results from the api
-     */
+
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun testResponseCode() = runTest {
@@ -46,10 +43,10 @@ class ReposServiceTest {
             .catch { exception ->
                 Log.i(TAG, "Exception : ${exception.message}")
                 assert(false)
-            } // exception
+            }
             .collect { response ->
                 Log.i(TAG, "Response : $response")
                 assert(response.isSuccessful)
-            } // collect
+            }
     }
 }
